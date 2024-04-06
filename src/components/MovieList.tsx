@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Movie from "./Movie";
 import { useEffect, useState } from "react";
+import Spinner from "../ui/Spinner";
 
 const List = styled.li`
   display: flex;
@@ -20,6 +21,7 @@ function MovieList() {
   const [isLoading, setIsLoading] = useState(false);
 
   interface M {
+    imdbID: string;
     Title: string;
     Poster: string;
     Year: number;
@@ -29,13 +31,12 @@ function MovieList() {
     async function getMovies() {
       setIsLoading(true);
       const response = await fetch(
-        `http://www.omdbapi.com/?i=tt3896198&apikey=b44e8d38&s=don`
+        `http://www.omdbapi.com/?apikey=b44e8d38&s=night`
       );
       const data = await response.json();
-      console.log(data.Search);
+      // console.log(data.Search);
       setMovies(data.Search);
       setIsLoading(false);
-      // console.log(movies);///////
     }
     getMovies();
   }, []);
@@ -43,11 +44,11 @@ function MovieList() {
   return (
     <List>
       {isLoading ? (
-        <h3>Loading..</h3>
+        <Spinner />
       ) : (
         movies.map((movie: M) => (
           <Movie
-            key={movie.Title}
+            key={movie.imdbID}
             title={movie.Title}
             img={movie.Poster}
             year={movie.Year}

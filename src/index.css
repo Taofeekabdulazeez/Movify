@@ -12,7 +12,7 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   line-height: 1;
-  color: #fff;
+  color: #eee;
   padding: 6rem;
   /* background-color: #030309; */
   background-color: #28354d;
@@ -33,10 +33,12 @@ body {
   background-color: #28354d;
 }
 
-.spinner svg {
-  height: 6rem;
-  width: 6rem;
-  fill: #f38e82;
+svg.spinner {
+  height: 3.2rem;
+  width: 3.2rem;
+  fill: #fff;
+  margin-inline: auto;
+  margin-top: 8rem;
   animation: rotate 2s infinite linear;
 }
 

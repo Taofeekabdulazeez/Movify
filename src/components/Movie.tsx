@@ -52,7 +52,7 @@ function Movie({ title, img, year }: MovieProps) {
   return (
     <StlyedMovie>
       <ImgBox>
-        <Img src={img} />
+        <Img src={img} alt={title} />
       </ImgBox>
       <div>
         <H5>{title}</H5>

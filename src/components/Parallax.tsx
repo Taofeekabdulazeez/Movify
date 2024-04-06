@@ -1,5 +1,14 @@
 import styled, { css, keyframes } from "styled-components";
+import { FaStar } from "react-icons/fa";
+import { BiUpvote } from "react-icons/bi";
+import { IoPersonOutline } from "react-icons/io5";
+import { IoIosTimer } from "react-icons/io";
+import { IoPeopleOutline } from "react-icons/io5";
+import { RiSpeakLine } from "react-icons/ri";
+import { MdOutlineDateRange } from "react-icons/md";
+import { FaRegFlag } from "react-icons/fa";
 import Rating from "../ui/Rating";
+import Button from "./Button";
 
 const parallax = keyframes`
    to {
@@ -35,7 +44,7 @@ const Title = styled.h2`
   padding: 1.2rem;
 `;
 
-const Content = styled.p`
+const Content = styled.div`
   font-size: 1.6rem;
   padding-top: 3rem;
 `;
@@ -78,16 +87,22 @@ const SubDetail = styled.div`
   align-items: center;
   position: absolute;
   left: 1.2rem;
-  bottom: -1rem;
+  bottom: -1.4rem;
 
   & p {
     font-size: 1.2rem;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
   }
 
-  & span {
-    font-size: 1rem;
+  & > span {
+    font-size: 1.1rem;
     color: #ddd;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
   }
 `;
 
@@ -95,6 +110,31 @@ const Desc = styled.p`
   font-size: 1.4rem;
   font-style: italic;
   line-height: 1.6;
+  margin-bottom: 3rem;
+`;
+
+const H6 = styled.h6`
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const FlexRol = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const I = styled.p`
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.6rem;
+  font-style: italic;
+  margin-bottom: 2rem;
 `;
 
 function Parallax() {
@@ -104,18 +144,50 @@ function Parallax() {
         <ImgBox image="action.jpg" />
         <Title>THE CLAMAROOK</Title>
         <SubDetail>
-          <p>⭐ 4.5 | 1282</p>
-          <span>release ▪ 2019</span>
+          <p>
+            <FaStar size={14} color="gold" /> 4.5 | 1282
+          </p>
+          <span>
+            <IoIosTimer size={14} color="#fff" /> 108 min
+          </span>
+          <span>
+            <BiUpvote size={14} color="#fff" />
+            375,625
+          </span>
         </SubDetail>
       </StyledParallax>
       <Content>
-        <Rating />
+        <FlexRol>
+          <Rating />
+          <Button />
+        </FlexRol>
+        <H6>Storyline</H6>
         <Desc>
           In order to power the city, monsters have to scare children so that
           they scream. However, the children are toxic to the monsters, and
           after a child gets through, two monsters realize things may not be
           what they think.
         </Desc>
+        <H6>
+          <IoPersonOutline color="#92a5c8" /> Director
+        </H6>
+        <I>Shawn Levy</I>
+        <H6>
+          <IoPeopleOutline color="#92a5c8" /> Casts
+        </H6>
+        <I>Ben Stiller, Carla Gugino, Ricky Gervais</I>
+        <H6>
+          <RiSpeakLine color="#92a5c8" /> Language
+        </H6>
+        <I>English, Italian, Hebrew</I>
+        <H6>
+          <FaRegFlag color="#92a5c8" /> Country
+        </H6>
+        <I>United States, United Kingdom</I>
+        <H6>
+          <MdOutlineDateRange color="#92a5c8" /> Released
+        </H6>
+        <I>22 Dec 2008</I>
       </Content>
     </Container>
   );
