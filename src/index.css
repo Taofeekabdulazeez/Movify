@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1;
   color: #fff;
   padding: 6rem;
@@ -19,4 +19,32 @@ body {
   height: 100dvh;
   display: grid;
   place-content: center;
+}
+
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1a1b1d;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #28354d;
+}
+
+.spinner svg {
+  height: 6rem;
+  width: 6rem;
+  fill: #f38e82;
+  animation: rotate 2s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

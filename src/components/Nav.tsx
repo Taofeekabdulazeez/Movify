@@ -7,7 +7,8 @@ const StyledNav = styled.nav`
   grid-template-columns: auto 36rem auto;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
+  padding-inline: 3rem;
 `;
 
 interface NavProps {

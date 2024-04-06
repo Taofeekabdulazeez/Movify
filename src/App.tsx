@@ -5,14 +5,17 @@ import NumResults from "./components/NumResults";
 import Main from "./components/Main";
 import Box from "./components/Box";
 import MovieList from "./components/MovieList";
+import Parallax from "./components/Parallax";
 
 const AppContainer = styled.div`
   width: 100rem;
   /* background-color: #28354d; */
   background-color: #030309;
   border-radius: 23px;
-  padding: 3rem;
+  padding-block: 3rem;
 `;
+
+// const apiKey = "b44e8d38";
 
 function App() {
   return (
@@ -26,6 +29,7 @@ function App() {
         <Box>
           <MovieList />
         </Box>
+        <Parallax />
       </Main>
     </AppContainer>
   );

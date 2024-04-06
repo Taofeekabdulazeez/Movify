@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const StyledBox = styled.div`
   position: relative;
+  padding-right: 1rem;
 `;
 
 const Button = styled.button`

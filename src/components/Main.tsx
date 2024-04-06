@@ -5,6 +5,7 @@ const StyledMain = styled.main`
   display: grid;
   grid-template-columns: 1fr 2fr;
   overflow-y: hidden;
+  padding: 1rem;
 `;
 
 interface MainProps {
