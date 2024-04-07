@@ -46,11 +46,13 @@ interface MovieProps {
   title: string;
   img: string;
   year: number;
+  id: string;
+  setId: (id: string) => void;
 }
 
-function Movie({ title, img, year }: MovieProps) {
+function Movie({ id, title, img, year, setId }: MovieProps) {
   return (
-    <StlyedMovie>
+    <StlyedMovie onClick={() => setId(id)}>
       <ImgBox>
         <Img src={img} alt={title} />
       </ImgBox>

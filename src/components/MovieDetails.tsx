@@ -35,7 +35,7 @@ const StyledParallax = styled.div`
 //   background: linear-gradient(to bottom, rgba(245, 246, 252, 0.52), #000);
 // `;
 
-const Title = styled.h2`
+const Name = styled.h2`
   --speed: 0;
   font-size: 3.2rem;
   font-weight: 600;
@@ -137,22 +137,53 @@ const I = styled.p`
   margin-bottom: 2rem;
 `;
 
-function Parallax() {
+export interface MovieObj {
+  Title?: string;
+  Genre?: string;
+  Language?: string;
+  Released?: string;
+  Runtime?: string;
+  imdbVotes?: string;
+  Director?: string;
+  Country?: string;
+  Plot?: string;
+  Actors?: string;
+  Poster?: string;
+}
+
+interface MovieDetailsProps {
+  id?: string;
+  movie: MovieObj;
+}
+
+function MovieDetails({ movie }: MovieDetailsProps) {
+  const {
+    Title,
+    Runtime,
+    Language,
+    imdbVotes,
+    Director,
+    Country,
+    Plot,
+    Released,
+    Actors,
+    Poster,
+  } = movie;
   return (
     <Container>
       <StyledParallax>
-        <ImgBox image="action.jpg" />
-        <Title>THE CLAMAROOK</Title>
+        <ImgBox image={Poster} />
+        <Name>{Title}</Name>
         <SubDetail>
           <p>
             <FaStar size={14} color="gold" /> 4.5 | 1282
           </p>
           <span>
-            <IoIosTimer size={14} color="#fff" /> 108 min
+            <IoIosTimer size={14} color="#fff" /> {Runtime}
           </span>
           <span>
             <BiUpvote size={14} color="#fff" />
-            375,625
+            {imdbVotes}
           </span>
         </SubDetail>
       </StyledParallax>
@@ -162,35 +193,30 @@ function Parallax() {
           <Button />
         </FlexRol>
         <H6>Storyline</H6>
-        <Desc>
-          In order to power the city, monsters have to scare children so that
-          they scream. However, the children are toxic to the monsters, and
-          after a child gets through, two monsters realize things may not be
-          what they think.
-        </Desc>
+        <Desc>{Plot}</Desc>
         <H6>
           <IoPersonOutline color="#92a5c8" /> Director
         </H6>
-        <I>Shawn Levy</I>
+        <I>{Director}</I>
         <H6>
           <IoPeopleOutline color="#92a5c8" /> Casts
         </H6>
-        <I>Ben Stiller, Carla Gugino, Ricky Gervais</I>
+        <I>{Actors}</I>
         <H6>
           <RiSpeakLine color="#92a5c8" /> Language
         </H6>
-        <I>English, Italian, Hebrew</I>
+        <I>{Language}</I>
         <H6>
           <FaRegFlag color="#92a5c8" /> Country
         </H6>
-        <I>United States, United Kingdom</I>
+        <I>{Country}</I>
         <H6>
           <MdOutlineDateRange color="#92a5c8" /> Released
         </H6>
-        <I>22 Dec 2008</I>
+        <I>{Released}</I>
       </Content>
     </Container>
   );
 }
 
-export default Parallax;
+export default MovieDetails;

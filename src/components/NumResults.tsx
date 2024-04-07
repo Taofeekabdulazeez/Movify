@@ -5,8 +5,12 @@ const P = styled.p`
   font-weight: 500;
 `;
 
-function NumResults() {
-  return <P>Found x results</P>;
+interface NumResultsProps {
+  movies?: Array<object>;
+}
+
+function NumResults({ movies }: NumResultsProps) {
+  return <P>Found {movies ? movies.length : 0} results</P>;
 }
 
 export default NumResults;

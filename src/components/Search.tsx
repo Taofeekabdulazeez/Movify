@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
+import React from "react";
 
 const StyledInput = styled.input`
   border: 0;
@@ -23,11 +24,20 @@ const InputBox = styled.div`
   border-radius: 23px;
 `;
 
-function Search() {
+interface SearchProps {
+  query: string;
+  setQuery: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function Search({ query, setQuery }: SearchProps) {
   return (
     <InputBox>
       <FiSearch size={20} color="#cdc5bb" />
-      <StyledInput placeholder="Search for movies" />
+      <StyledInput
+        placeholder="Search for movies"
+        value={query}
+        onChange={setQuery}
+      />
     </InputBox>
   );
 }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Movie from "./Movie";
-import { useEffect, useState } from "react";
 import Spinner from "../ui/Spinner";
+import Error from "../ui/Error";
 
 const List = styled.li`
   display: flex;
@@ -16,42 +16,36 @@ const List = styled.li`
   }
 `;
 
-function MovieList() {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+interface MovieObj {
+  imdbID: string;
+  Title: string;
+  Poster: string;
+  Year: number;
+}
 
-  interface M {
-    imdbID: string;
-    Title: string;
-    Poster: string;
-    Year: number;
-  }
+interface MovieListProps {
+  error?: boolean;
+  isLoading?: boolean;
+  movies: Array<MovieObj>;
+  setId: (id: string) => void;
+}
 
-  useEffect(function () {
-    async function getMovies() {
-      setIsLoading(true);
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=b44e8d38&s=night`
-      );
-      const data = await response.json();
-      // console.log(data.Search);
-      setMovies(data.Search);
-      setIsLoading(false);
-    }
-    getMovies();
-  }, []);
+function MovieList({ error, isLoading, movies, setId }: MovieListProps) {
+  if (error) return <Error message="Couldn't find movies!" />;
 
   return (
     <List>
-      {isLoading ? (
+      {isLoading && !error ? (
         <Spinner />
       ) : (
-        movies.map((movie: M) => (
+        movies?.map((movie: MovieObj) => (
           <Movie
             key={movie.imdbID}
             title={movie.Title}
             img={movie.Poster}
             year={movie.Year}
+            id={movie.imdbID}
+            setId={setId}
           />
         ))
       )}
