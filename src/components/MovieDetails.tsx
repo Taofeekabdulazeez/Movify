@@ -37,11 +37,6 @@ const StyledParallax = styled.div`
   }
 `;
 
-// const Img = styled.img`
-//   width: 100%;
-//   background: linear-gradient(to bottom, rgba(245, 246, 252, 0.52), #000);
-// `;
-
 const Name = styled.h2`
   --speed: 0;
   font-size: 3.2rem;
@@ -65,12 +60,12 @@ const Container = styled.div`
 `;
 
 interface ImgBoxProps {
-  image?: string;
+  $image?: string;
 }
 
 const ImgBox = styled.div<ImgBoxProps>`
   ${(props) =>
-    props.image &&
+    props.$image &&
     css`
       background-image: linear-gradient(
           to bottom,
@@ -78,7 +73,7 @@ const ImgBox = styled.div<ImgBoxProps>`
           rgba(230, 125, 34, 0.35),
           rgba(0, 0, 0, 0.9)
         ),
-        url(${props.image});
+        url(${props.$image});
     `}
 
   width: 100%;
@@ -191,7 +186,7 @@ function MovieDetails() {
     movie,
     handleAddWatched,
     handleDeleteWatched,
-    isLoading2,
+    isLoadingDetails,
   } = useContext(MoviesContext);
   const [userRating, setUserRating] = useState(0);
   const isWatched = watchedList
@@ -223,14 +218,15 @@ function MovieDetails() {
     };
 
     handleAddWatched?.(newMovie);
+    setUserRating(0);
   };
 
-  if (isLoading2) return <Spinner />;
+  if (isLoadingDetails) return <Spinner />;
 
   return (
     <Container>
       <StyledParallax>
-        <ImgBox image={Poster} />
+        <ImgBox $image={Poster} />
         <Name>{Title}</Name>
         <SubDetail>
           <p>
@@ -242,10 +238,6 @@ function MovieDetails() {
           <span>
             <IoIosTimer size={14} color="#fff" /> {Runtime}
           </span>
-          {/* <span>
-            <BiUpvote size={14} color="#fff" />
-            {imdbVotes}
-          </span> */}
         </SubDetail>
       </StyledParallax>
       <Content>
@@ -266,9 +258,7 @@ function MovieDetails() {
             </>
           ) : (
             <>
-              <P>
-                You rated this movie {userRating} star{userRating > 1 && "s"}
-              </P>
+              <P>You've rated this movie!</P>
               <Button
                 $type="remove"
                 onClick={() => handleDeleteWatched?.(imdbID)}

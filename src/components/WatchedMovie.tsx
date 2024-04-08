@@ -1,11 +1,11 @@
+import { useContext } from "react";
+import { MoviesContext } from "./contexts/MoviesContext";
+import { watchedMovieObj } from "../interfaces/interface";
 import styled from "styled-components";
 import { FaRankingStar } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
 import { IoTimer } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
-import { useContext } from "react";
-import { MoviesContext } from "./contexts/MoviesContext";
-import { watchedMovieObj } from "../interfaces/interface";
 
 const StlyedMovie = styled.a`
   display: block;
@@ -69,11 +69,11 @@ interface WatchedMovieProps {
 }
 
 function WatchedMovie({ watched }: WatchedMovieProps) {
-  const { handleDeleteWatched } = useContext(MoviesContext);
+  const { handleDeleteWatched, handleSelectedId } = useContext(MoviesContext);
   const { id, image, title, imdbRating, runtime, userRating } = watched;
 
   return (
-    <StlyedMovie>
+    <StlyedMovie onClick={() => handleSelectedId?.(id)}>
       <ImgBox>
         <Img src={image} />
       </ImgBox>

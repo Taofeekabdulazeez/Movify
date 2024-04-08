@@ -20,21 +20,14 @@ const List = styled.li`
   }
 `;
 
-// interface MovieListProps {
-//   error?: boolean;
-//   isLoading?: boolean;
-//   movies: Array<MovieObj>;
-//   setId: (id: string) => void;
-// }
-
 function MovieList() {
-  const { error, isLoading, movies } = useContext(MoviesContext);
+  const { error, isLoadingMovies, movies } = useContext(MoviesContext);
 
   if (error) return <Error message="Couldn't find movies!" />;
 
   return (
     <List>
-      {isLoading && !error ? (
+      {isLoadingMovies && !error ? (
         <Spinner />
       ) : (
         movies?.map((movie: MovieObj) => (

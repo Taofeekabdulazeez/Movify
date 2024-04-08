@@ -1,12 +1,12 @@
-import styled from "styled-components";
 import { ReactNode } from "react";
+import styled from "styled-components";
 
 const StyledNav = styled.nav`
   display: grid;
   grid-template-columns: auto 36rem auto;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
   padding-inline: 3rem;
 `;
 

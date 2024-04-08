@@ -46,10 +46,10 @@ const Span = styled.span`
 `;
 
 function Movie({ movie }: MovieProps) {
-  const { handleSelectId } = useContext(MoviesContext);
+  const { handleSelectedId } = useContext(MoviesContext);
   const { imdbID, Poster, Title, Year } = movie;
   return (
-    <StlyedMovie onClick={() => handleSelectId?.(imdbID)}>
+    <StlyedMovie onClick={() => handleSelectedId?.(imdbID)}>
       <ImgBox>
         <Img src={Poster} alt={Title} />
       </ImgBox>

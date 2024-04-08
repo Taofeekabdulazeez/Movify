@@ -4,13 +4,13 @@ export interface MoviesContextInterface {
   query?: string;
   handleQuery?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   movies?: Array<MovieObj>;
-  isLoading?: boolean;
+  isLoadingMovies?: boolean;
   error?: boolean;
   selectedId?: string;
   movie: MovieDetailsObj;
-  isLoading2?: boolean;
+  isLoadingDetails?: boolean;
   watchedList?: Array<watchedMovieObj>;
-  handleSelectId?: (id: string) => void;
+  handleSelectedId?: (id: string) => void;
   handleAddWatched?: (newMovie: watchedMovieObj) => void;
   handleDeleteWatched?: (id: string) => void;
 }

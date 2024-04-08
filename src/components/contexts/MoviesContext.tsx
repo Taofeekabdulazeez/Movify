@@ -16,17 +16,17 @@ const MoviesContext = createContext<MoviesContextInterface>({
 function MoviesProvider({ children }: MoviesProviderProps) {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState<MovieObj[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingMovies, setIsLoadingMovies] = useState(false);
   const [error, setError] = useState(false);
   const [selectedId, setSelectedId] = useState("tt0477347");
   const [movie, setMovie] = useState<MovieDetailsObj>({ imdbID: "" });
-  const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoadingDetails, setIsLoadingDetails] = useState(false);
   const [watchedList, setWatchedList] = useState<watchedMovieObj[]>([]);
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) =>
     setQuery(event.target.value);
 
-  const handleSelectId = (id: string) => setSelectedId(id);
+  const handleSelectedId = (id: string) => setSelectedId(id);
   const handleAddWatched = (newMovie: watchedMovieObj) => {
     setWatchedList((watchedMovies: Array<watchedMovieObj>) => [
       ...watchedMovies,
@@ -44,13 +44,13 @@ function MoviesProvider({ children }: MoviesProviderProps) {
       async function getMovies() {
         try {
           setError(false);
-          setIsLoading(true);
+          setIsLoadingMovies(true);
           const response = await fetch(
             `http://www.omdbapi.com/?apikey=b44e8d38&s=${query}`
           );
           const data = await response.json();
           setMovies(data.Search);
-          setIsLoading(false);
+          setIsLoadingMovies(false);
         } catch (error) {
           setError(true);
         }
@@ -65,13 +65,13 @@ function MoviesProvider({ children }: MoviesProviderProps) {
     function () {
       async function getMovieByID() {
         try {
-          setIsLoading2(true);
+          setIsLoadingDetails(true);
           const response = await fetch(
             `http://www.omdbapi.com/?i=${selectedId}&apikey=b44e8d38&`
           );
           const data = await response.json();
           setMovie(data);
-          setIsLoading2(false);
+          setIsLoadingDetails(false);
         } catch (error) {
           console.log(error);
         }
@@ -90,11 +90,11 @@ function MoviesProvider({ children }: MoviesProviderProps) {
         movies,
         error,
         watchedList,
-        isLoading,
-        isLoading2,
+        isLoadingMovies,
+        isLoadingDetails,
         handleDeleteWatched,
         handleAddWatched,
-        handleSelectId,
+        handleSelectedId,
       }}
     >
       {children}
