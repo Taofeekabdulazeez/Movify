@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
 import { useContext } from "react";
-import { MoviesContext } from "./contexts/MoviesContext";
+import { MoviesContext } from "../contexts/MoviesContext";
 
 const StyledInput = styled.input`
   border: 0;

@@ -1,4 +1,4 @@
-import { MoviesProvider } from "./components/contexts/MoviesContext";
+import { MoviesProvider } from "./contexts/MoviesContext";
 import styled from "styled-components";
 import Nav from "./components/Nav";
 import Search from "./components/Search";

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MoviesContext } from "./contexts/MoviesContext";
+import { MoviesContext } from "../contexts/MoviesContext";
 import { watchedMovieObj } from "../interfaces/interface";
 import styled from "styled-components";
 import { FaRankingStar } from "react-icons/fa6";

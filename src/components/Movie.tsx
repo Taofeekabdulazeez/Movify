@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { SlCalender } from "react-icons/sl";
 import { useContext } from "react";
-import { MoviesContext } from "./contexts/MoviesContext";
+import { MoviesContext } from "../contexts/MoviesContext";
 import { MovieProps } from "../interfaces/interface";
 
 const StlyedMovie = styled.a`

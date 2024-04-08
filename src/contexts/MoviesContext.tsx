@@ -5,7 +5,7 @@ import {
   MoviesContextInterface,
   MoviesProviderProps,
   watchedMovieObj,
-} from "../../interfaces/interface";
+} from "../interfaces/interface";
 
 const MoviesContext = createContext<MoviesContextInterface>({
   movie: {

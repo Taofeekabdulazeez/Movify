@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { MoviesContext } from "./contexts/MoviesContext";
+import { MoviesContext } from "../contexts/MoviesContext";
 
 const P = styled.p`
   font-size: 1.6rem;

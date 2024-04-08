@@ -13,7 +13,7 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { FaRegFlag } from "react-icons/fa";
 import Rating from "../ui/Rating";
 import { useContext, useState } from "react";
-import { MoviesContext } from "./contexts/MoviesContext";
+import { MoviesContext } from "../contexts/MoviesContext";
 import Spinner from "../ui/Spinner";
 import { watchedMovieObj } from "../interfaces/interface";
 
