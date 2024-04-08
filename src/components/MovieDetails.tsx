@@ -12,8 +12,10 @@ import { RiSpeakLine } from "react-icons/ri";
 import { MdOutlineDateRange } from "react-icons/md";
 import { FaRegFlag } from "react-icons/fa";
 import Rating from "../ui/Rating";
-import { watchedObj } from "./WatchedMovie";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { MoviesContext } from "./contexts/MoviesContext";
+import Spinner from "../ui/Spinner";
+import { watchedMovieObj } from "../interfaces/interface";
 
 const parallax = keyframes`
    to {
@@ -142,6 +144,14 @@ const I = styled.p`
   margin-bottom: 2rem;
 `;
 
+const P = styled.p`
+  font-size: 1.4rem;
+  font-weight: 500;
+  font-style: italic;
+  color: #c6ac16;
+  /* color: #4080d4; */
+`;
+
 interface ButtonProps {
   $type?: string;
 }
@@ -175,40 +185,18 @@ const Button = styled.button<{ $type?: string }>`
   justify-content: center;
 `;
 
-export interface MovieObj {
-  Title?: string;
-  Genre?: string;
-  Language?: string;
-  Released?: string;
-  Runtime?: string;
-  imdbVotes?: string;
-  Director?: string;
-  Country?: string;
-  Plot?: string;
-  Actors?: string;
-  Poster?: string;
-  imdbID: string;
-  imbdRating?: string;
-}
-
-interface MovieDetailsProps {
-  id?: string;
-  movie: MovieObj;
-  watchedMovies: Array<watchedObj>;
-  handleAddWatched: (watched: watchedObj) => void;
-  handleDeleteWatched: (id: string) => void;
-}
-
-function MovieDetails({
-  movie,
-  handleAddWatched,
-  handleDeleteWatched,
-  watchedMovies,
-}: MovieDetailsProps) {
+function MovieDetails() {
+  const {
+    watchedList,
+    movie,
+    handleAddWatched,
+    handleDeleteWatched,
+    isLoading2,
+  } = useContext(MoviesContext);
   const [userRating, setUserRating] = useState(0);
-  const isWatched = watchedMovies
-    .map((watched) => watched.id)
-    .includes(movie.imdbID);
+  const isWatched = watchedList
+    ?.map((watched) => watched.id)
+    ?.includes(movie.imdbID);
   const {
     Title,
     Runtime,
@@ -221,21 +209,23 @@ function MovieDetails({
     Actors,
     Poster,
     imdbID,
-    imbdRating,
+    imdbRating,
   } = movie;
 
   const setWatched = () => {
-    const newMovie: watchedObj = {
+    const newMovie: watchedMovieObj = {
       id: imdbID,
       image: Poster,
       title: Title,
-      imdbRating: Number(imbdRating),
+      imdbRating: Number(imdbRating),
       runtime: Number(Runtime?.split(" ")[0]),
       userRating,
     };
 
-    handleAddWatched(newMovie);
+    handleAddWatched?.(newMovie);
   };
+
+  if (isLoading2) return <Spinner />;
 
   return (
     <Container>
@@ -244,22 +234,29 @@ function MovieDetails({
         <Name>{Title}</Name>
         <SubDetail>
           <p>
-            <FaStar size={14} color="gold" /> 4.5 | 1282
+            <FaStar size={14} color="gold" />{" "}
+            {(Number(imdbRating) / 2).toFixed(1)} |
+            <BiUpvote size={14} color="#fff" />
+            {imdbVotes}
           </p>
           <span>
             <IoIosTimer size={14} color="#fff" /> {Runtime}
           </span>
-          <span>
+          {/* <span>
             <BiUpvote size={14} color="#fff" />
             {imdbVotes}
-          </span>
+          </span> */}
         </SubDetail>
       </StyledParallax>
       <Content>
         <FlexRol>
           {!isWatched ? (
             <>
-              <Rating defaultRating={0} onSetRating={setUserRating} />
+              <Rating
+                defaultRating={0}
+                onSetRating={setUserRating}
+                showNumRating={true}
+              />
               {userRating > 0 && (
                 <Button $type="add" onClick={setWatched}>
                   <IoMdAddCircleOutline size={20} color="#fff" />
@@ -269,10 +266,12 @@ function MovieDetails({
             </>
           ) : (
             <>
-              <p>You rated this movie {userRating}</p>
+              <P>
+                You rated this movie {userRating} star{userRating > 1 && "s"}
+              </P>
               <Button
                 $type="remove"
-                onClick={() => handleDeleteWatched(imdbID)}
+                onClick={() => handleDeleteWatched?.(imdbID)}
               >
                 <IoMdRemoveCircleOutline size={20} color="#fff" />
                 <span>Remove</span>

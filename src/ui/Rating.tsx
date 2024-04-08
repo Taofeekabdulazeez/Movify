@@ -8,6 +8,9 @@ interface RatingProps {
   gap?: number;
   classname?: string;
   defaultRating?: number;
+  showNumRating?: boolean;
+  fontSize?: number | string;
+  fontWeight?: number | string;
 }
 
 function Rating({
@@ -17,13 +20,23 @@ function Rating({
   defaultRating = 1,
   size = 24,
   onSetRating,
+  showNumRating = false,
+  fontSize = 14,
+  fontWeight = 500,
 }: RatingProps) {
   const ratingStyle = {
     display: "flex",
     gap: `${gap}`,
     alignItems: "center",
     listStyle: "none",
+    color: `${color}`,
     cursor: "pointer",
+  };
+
+  const numStyled = {
+    marginLeft: "10px",
+    fontSize: `${fontSize}px`,
+    fontWeight: `${fontWeight}`,
   };
 
   const [rating, setRating] = useState(defaultRating);
@@ -45,6 +58,9 @@ function Rating({
           mouseLeave={() => setTempRating(0)}
         />
       ))}
+      {showNumRating && Boolean(tempRating) && (
+        <li style={numStyled}>{tempRating || rating}</li>
+      )}
     </ul>
   );
 }

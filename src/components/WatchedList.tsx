@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import WatchedMovie, { watchedObj } from "./WatchedMovie";
+import { useContext } from "react";
+import { MoviesContext } from "./contexts/MoviesContext";
 
 const List = styled.li`
   display: flex;
@@ -14,20 +16,12 @@ const List = styled.li`
   }
 `;
 
-interface WatchedListProps {
-  watchedMovies: Array<watchedObj>;
-  handleDeleteWatch: (id: string) => void;
-}
-
-function WatchedList({ watchedMovies, handleDeleteWatch }: WatchedListProps) {
+function WatchedList() {
+  const { watchedList } = useContext(MoviesContext);
   return (
     <List>
-      {watchedMovies.map((watched: watchedObj) => (
-        <WatchedMovie
-          key={watched.id}
-          watched={watched}
-          handleDeleteWatch={handleDeleteWatch}
-        />
+      {watchedList.map((watched: watchedObj) => (
+        <WatchedMovie key={watched.id} watched={watched} />
       ))}
     </List>
   );

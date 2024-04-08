@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Logo from "../ui/Logo";
 import { ReactNode } from "react";
 
 const StyledNav = styled.nav`
@@ -13,16 +12,10 @@ const StyledNav = styled.nav`
 
 interface NavProps {
   children?: ReactNode;
-  name?: string;
 }
 
 function Nav({ children }: NavProps) {
-  return (
-    <StyledNav>
-      <Logo />
-      {children}
-    </StyledNav>
-  );
+  return <StyledNav>{children}</StyledNav>;
 }
 
 export default Nav;

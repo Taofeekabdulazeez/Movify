@@ -1,16 +1,19 @@
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
-import React from "react";
+import { useContext } from "react";
+import { MoviesContext } from "./contexts/MoviesContext";
 
 const StyledInput = styled.input`
   border: 0;
   outline: none;
   background-color: inherit;
-  color: #cdc5bb;
+  /* color: #cdc5bb; */
+  color: #eee;
   display: block;
 
   &::placeholder {
-    color: #cdc5bb;
+    /* color: #cdc5bb; */
+    color: #eee;
   }
 `;
 
@@ -24,19 +27,15 @@ const InputBox = styled.div`
   border-radius: 23px;
 `;
 
-interface SearchProps {
-  query: string;
-  setQuery: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-function Search({ query, setQuery }: SearchProps) {
+function Search() {
+  const { query, handleQuery } = useContext(MoviesContext);
   return (
     <InputBox>
-      <FiSearch size={20} color="#cdc5bb" />
+      <FiSearch size={20} color="#fff" />
       <StyledInput
         placeholder="Search for movies"
         value={query}
-        onChange={setQuery}
+        onChange={handleQuery}
       />
     </InputBox>
   );

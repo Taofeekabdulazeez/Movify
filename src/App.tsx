@@ -3,13 +3,11 @@ import Nav from "./components/Nav";
 import Search from "./components/Search";
 import NumResults from "./components/NumResults";
 import Main from "./components/Main";
-import Box from "./components/Box";
 import MovieList from "./components/MovieList";
-import React, { useEffect, useState } from "react";
-import MovieDetails, { MovieObj } from "./components/MovieDetails";
-import Spinner from "./ui/Spinner";
+import MovieDetails from "./components/MovieDetails";
 import WatchedList from "./components/WatchedList";
-import { watchedObj } from "./components/WatchedMovie";
+import { MoviesProvider } from "./components/contexts/MoviesContext";
+import Logo from "./ui/Logo";
 
 const AppContainer = styled.div`
   width: 115rem;
@@ -19,114 +17,23 @@ const AppContainer = styled.div`
   padding-block: 3rem;
 `;
 
-// const apiKey = "b44e8d38";
-// const id = "tt0477347";
-
 function App() {
-  const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [selectedId, setSelectedId] = useState("tt0477347");
-  const [movie, setMovie] = useState<MovieObj>({ imdbID: "" });
-  const [isLoading2, setIsLoading2] = useState(false);
-  const [watchedList, setWatchedList] = useState<watchedObj[]>([]);
-
-  const handleSelectId = (id: string) => setSelectedId(id);
-  const handleAddWatched = (newMovie: watchedObj) => {
-    setWatchedList((watchedMovies: Array<watchedObj>) => [
-      ...watchedMovies,
-      newMovie,
-    ]);
-  };
-
-  const handleDeleteWatch = (id: string) =>
-    setWatchedList((watchedMovies) =>
-      watchedMovies.filter((watched) => watched.id !== id)
-    );
-
-  useEffect(
-    function () {
-      async function getMovies() {
-        try {
-          setError(false);
-          setIsLoading(true);
-          const response = await fetch(
-            `http://www.omdbapi.com/?apikey=b44e8d38&s=${query}`
-          );
-          const data = await response.json();
-          // console.log(data.Search);
-          setMovies(data.Search);
-          setIsLoading(false);
-        } catch (error) {
-          setError(true);
-        }
-      }
-      if (query.length < 3) return;
-      getMovies();
-    },
-    [query]
-  );
-
-  useEffect(
-    function () {
-      async function getMovieByID() {
-        try {
-          setIsLoading2(true);
-          const response = await fetch(
-            `http://www.omdbapi.com/?i=${selectedId}&apikey=b44e8d38&`
-          );
-          const data = await response.json();
-          console.log(data);
-          setMovie(data);
-          setIsLoading2(false);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      getMovieByID();
-    },
-    [selectedId]
-  );
-
   return (
-    <AppContainer>
-      <Nav>
-        <Search
-          query={query}
-          setQuery={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setQuery(event.target.value)
-          }
-        />
-        <NumResults movies={movies} />
-      </Nav>
+    <MoviesProvider>
+      <AppContainer>
+        <Nav>
+          <Logo />
+          <Search />
+          <NumResults />
+        </Nav>
 
-      <Main>
-        <Box>
-          <MovieList
-            movies={movies}
-            isLoading={isLoading}
-            error={error}
-            setId={handleSelectId}
-          />
-        </Box>
-        {isLoading2 ? (
-          <Spinner />
-        ) : (
-          <MovieDetails
-            id={selectedId}
-            movie={movie}
-            handleAddWatched={handleAddWatched}
-            watchedMovies={watchedList}
-            handleDeleteWatched={handleDeleteWatch}
-          />
-        )}
-        <WatchedList
-          watchedMovies={watchedList}
-          handleDeleteWatch={handleDeleteWatch}
-        />
-      </Main>
-    </AppContainer>
+        <Main>
+          <MovieList />
+          <MovieDetails />
+          <WatchedList />
+        </Main>
+      </AppContainer>
+    </MoviesProvider>
   );
 }
 

@@ -3,6 +3,9 @@ import { FaRankingStar } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
 import { IoTimer } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
+import { useContext } from "react";
+import { MoviesContext } from "./contexts/MoviesContext";
+import { watchedMovieObj } from "../interfaces/interface";
 
 const StlyedMovie = styled.a`
   display: block;
@@ -61,21 +64,12 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export interface watchedObj {
-  id: string;
-  image?: string;
-  title?: string;
-  imdbRating?: number;
-  runtime?: number;
-  userRating?: number;
-}
-
 interface WatchedMovieProps {
-  watched: watchedObj;
-  handleDeleteWatch: (id: string) => void;
+  watched: watchedMovieObj;
 }
 
-function WatchedMovie({ watched, handleDeleteWatch }: WatchedMovieProps) {
+function WatchedMovie({ watched }: WatchedMovieProps) {
+  const { handleDeleteWatched } = useContext(MoviesContext);
   const { id, image, title, imdbRating, runtime, userRating } = watched;
 
   return (
@@ -100,7 +94,7 @@ function WatchedMovie({ watched, handleDeleteWatch }: WatchedMovieProps) {
         </FlexRol>
       </div>
       <div>
-        <Button onClick={() => handleDeleteWatch(id)}>
+        <Button onClick={() => handleDeleteWatched?.(id)}>
           <MdDelete color="#b12c1e" size={16} />
         </Button>
       </div>

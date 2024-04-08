@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { SlCalender } from "react-icons/sl";
+import { useContext } from "react";
+import { MoviesContext } from "./contexts/MoviesContext";
+import { MovieProps } from "../interfaces/interface";
 
 const StlyedMovie = styled.a`
   display: block;
@@ -42,24 +45,18 @@ const Span = styled.span`
   gap: 0.6rem;
 `;
 
-interface MovieProps {
-  title: string;
-  img: string;
-  year: number;
-  id: string;
-  setId: (id: string) => void;
-}
-
-function Movie({ id, title, img, year, setId }: MovieProps) {
+function Movie({ movie }: MovieProps) {
+  const { handleSelectId } = useContext(MoviesContext);
+  const { imdbID, Poster, Title, Year } = movie;
   return (
-    <StlyedMovie onClick={() => setId(id)}>
+    <StlyedMovie onClick={() => handleSelectId?.(imdbID)}>
       <ImgBox>
-        <Img src={img} alt={title} />
+        <Img src={Poster} alt={Title} />
       </ImgBox>
       <div>
-        <H5>{title}</H5>
+        <H5>{movie?.Title}</H5>
         <Span>
-          <SlCalender color="#92a5c8" size={12} /> {year}
+          <SlCalender color="#92a5c8" size={12} /> {Year}
         </Span>
       </div>
     </StlyedMovie>

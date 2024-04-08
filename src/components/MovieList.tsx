@@ -2,6 +2,9 @@ import styled from "styled-components";
 import Movie from "./Movie";
 import Spinner from "../ui/Spinner";
 import Error from "../ui/Error";
+import { useContext } from "react";
+import { MoviesContext } from "./contexts/MoviesContext";
+import { MovieObj } from "../interfaces/interface";
 
 const List = styled.li`
   display: flex;
@@ -10,27 +13,23 @@ const List = styled.li`
   gap: 1rem;
   overflow-y: scroll;
   height: 40rem;
+  padding-right: 1rem;
 
   &::-webkit-scrollbar {
     /* display: none; */
   }
 `;
 
-interface MovieObj {
-  imdbID: string;
-  Title: string;
-  Poster: string;
-  Year: number;
-}
+// interface MovieListProps {
+//   error?: boolean;
+//   isLoading?: boolean;
+//   movies: Array<MovieObj>;
+//   setId: (id: string) => void;
+// }
 
-interface MovieListProps {
-  error?: boolean;
-  isLoading?: boolean;
-  movies: Array<MovieObj>;
-  setId: (id: string) => void;
-}
+function MovieList() {
+  const { error, isLoading, movies } = useContext(MoviesContext);
 
-function MovieList({ error, isLoading, movies, setId }: MovieListProps) {
   if (error) return <Error message="Couldn't find movies!" />;
 
   return (
@@ -39,14 +38,7 @@ function MovieList({ error, isLoading, movies, setId }: MovieListProps) {
         <Spinner />
       ) : (
         movies?.map((movie: MovieObj) => (
-          <Movie
-            key={movie.imdbID}
-            title={movie.Title}
-            img={movie.Poster}
-            year={movie.Year}
-            id={movie.imdbID}
-            setId={setId}
-          />
+          <Movie key={movie.imdbID} movie={movie} />
         ))
       )}
     </List>
