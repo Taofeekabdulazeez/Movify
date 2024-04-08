@@ -8,9 +8,11 @@ import MovieList from "./components/MovieList";
 import React, { useEffect, useState } from "react";
 import MovieDetails, { MovieObj } from "./components/MovieDetails";
 import Spinner from "./ui/Spinner";
+import WatchedList from "./components/WatchedList";
+import { watchedObj } from "./components/WatchedMovie";
 
 const AppContainer = styled.div`
-  width: 100rem;
+  width: 115rem;
   /* background-color: #28354d; */
   background-color: #030309;
   border-radius: 23px;
@@ -26,10 +28,22 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [selectedId, setSelectedId] = useState("tt0477347");
-  const [movie, setMovie] = useState<MovieObj>({});
+  const [movie, setMovie] = useState<MovieObj>({ imdbID: "" });
   const [isLoading2, setIsLoading2] = useState(false);
+  const [watchedList, setWatchedList] = useState<watchedObj[]>([]);
 
   const handleSelectId = (id: string) => setSelectedId(id);
+  const handleAddWatched = (newMovie: watchedObj) => {
+    setWatchedList((watchedMovies: Array<watchedObj>) => [
+      ...watchedMovies,
+      newMovie,
+    ]);
+  };
+
+  const handleDeleteWatch = (id: string) =>
+    setWatchedList((watchedMovies) =>
+      watchedMovies.filter((watched) => watched.id !== id)
+    );
 
   useEffect(
     function () {
@@ -99,8 +113,18 @@ function App() {
         {isLoading2 ? (
           <Spinner />
         ) : (
-          <MovieDetails id={selectedId} movie={movie} />
+          <MovieDetails
+            id={selectedId}
+            movie={movie}
+            handleAddWatched={handleAddWatched}
+            watchedMovies={watchedList}
+            handleDeleteWatched={handleDeleteWatch}
+          />
         )}
+        <WatchedList
+          watchedMovies={watchedList}
+          handleDeleteWatch={handleDeleteWatch}
+        />
       </Main>
     </AppContainer>
   );

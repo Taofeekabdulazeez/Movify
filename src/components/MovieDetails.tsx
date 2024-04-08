@@ -2,13 +2,18 @@ import styled, { css, keyframes } from "styled-components";
 import { FaStar } from "react-icons/fa";
 import { BiUpvote } from "react-icons/bi";
 import { IoPersonOutline } from "react-icons/io5";
-import { IoIosTimer } from "react-icons/io";
+import {
+  IoIosTimer,
+  IoMdAddCircleOutline,
+  IoMdRemoveCircleOutline,
+} from "react-icons/io";
 import { IoPeopleOutline } from "react-icons/io5";
 import { RiSpeakLine } from "react-icons/ri";
 import { MdOutlineDateRange } from "react-icons/md";
 import { FaRegFlag } from "react-icons/fa";
 import Rating from "../ui/Rating";
-import Button from "./Button";
+import { watchedObj } from "./WatchedMovie";
+import { useState } from "react";
 
 const parallax = keyframes`
    to {
@@ -137,6 +142,39 @@ const I = styled.p`
   margin-bottom: 2rem;
 `;
 
+interface ButtonProps {
+  $type?: string;
+}
+
+const Button = styled.button<{ $type?: string }>`
+  background: none;
+  border: 0;
+  padding: 1.2rem 1.4rem;
+
+  ${(props: ButtonProps) =>
+    props.$type === "add" &&
+    css`
+      background: linear-gradient(to bottom right, #0c56b7, #28354d);
+    `}
+
+  ${(props: ButtonProps) =>
+    props.$type === "remove" &&
+    css`
+      background: linear-gradient(to top right, #59100d, #59100d, #b12c1e);
+    `}
+
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: 9px;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-content: center;
+`;
+
 export interface MovieObj {
   Title?: string;
   Genre?: string;
@@ -149,14 +187,28 @@ export interface MovieObj {
   Plot?: string;
   Actors?: string;
   Poster?: string;
+  imdbID: string;
+  imbdRating?: string;
 }
 
 interface MovieDetailsProps {
   id?: string;
   movie: MovieObj;
+  watchedMovies: Array<watchedObj>;
+  handleAddWatched: (watched: watchedObj) => void;
+  handleDeleteWatched: (id: string) => void;
 }
 
-function MovieDetails({ movie }: MovieDetailsProps) {
+function MovieDetails({
+  movie,
+  handleAddWatched,
+  handleDeleteWatched,
+  watchedMovies,
+}: MovieDetailsProps) {
+  const [userRating, setUserRating] = useState(0);
+  const isWatched = watchedMovies
+    .map((watched) => watched.id)
+    .includes(movie.imdbID);
   const {
     Title,
     Runtime,
@@ -168,7 +220,23 @@ function MovieDetails({ movie }: MovieDetailsProps) {
     Released,
     Actors,
     Poster,
+    imdbID,
+    imbdRating,
   } = movie;
+
+  const setWatched = () => {
+    const newMovie: watchedObj = {
+      id: imdbID,
+      image: Poster,
+      title: Title,
+      imdbRating: Number(imbdRating),
+      runtime: Number(Runtime?.split(" ")[0]),
+      userRating,
+    };
+
+    handleAddWatched(newMovie);
+  };
+
   return (
     <Container>
       <StyledParallax>
@@ -189,8 +257,28 @@ function MovieDetails({ movie }: MovieDetailsProps) {
       </StyledParallax>
       <Content>
         <FlexRol>
-          <Rating />
-          <Button />
+          {!isWatched ? (
+            <>
+              <Rating defaultRating={0} onSetRating={setUserRating} />
+              {userRating > 0 && (
+                <Button $type="add" onClick={setWatched}>
+                  <IoMdAddCircleOutline size={20} color="#fff" />
+                  <span>Add to List</span>
+                </Button>
+              )}
+            </>
+          ) : (
+            <>
+              <p>You rated this movie {userRating}</p>
+              <Button
+                $type="remove"
+                onClick={() => handleDeleteWatched(imdbID)}
+              >
+                <IoMdRemoveCircleOutline size={20} color="#fff" />
+                <span>Remove</span>
+              </Button>
+            </>
+          )}
         </FlexRol>
         <H6>Storyline</H6>
         <Desc>{Plot}</Desc>
