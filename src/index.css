@@ -12,9 +12,9 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   line-height: 1;
-  color: #eee;
+  color: var(--text-body);
   padding: 6rem;
-  background-color: #28354d;
+  background-color: var(--bg-body);
   height: 100dvh;
   display: grid;
   place-content: center;
@@ -25,17 +25,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #1a1b1d;
+  background-color: var(--scroll-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #28354d;
+  background-color: var(--scroll-thumb);
 }
 
 svg.spinner {
   height: 3.2rem;
   width: 3.2rem;
-  fill: #fff;
   margin-inline: auto;
   margin-top: 8rem;
   animation: rotate 2s infinite linear;
@@ -48,4 +47,71 @@ svg.spinner {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.light-mode .text-effect::after {
+  position: absolute;
+  content: "";
+  height: 4.8rem;
+  display: block;
+  background-color: aliceblue;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background: linear-gradient(to right, aliceblue, transparent, transparent);
+}
+
+:root {
+  --primary-shade: #28354d;
+  --bg-body: #28354d;
+  --bg-app: #030309;
+  --text-body: #eee;
+  --spinner: #fff;
+  --icon-fill: #fff;
+  --input-bg: #28354d;
+  --text-light: #eee;
+  --parallax-gradient: linear-gradient(
+    to top,
+    #030309,
+    #0b0e12,
+    transparent 10%,
+    #0d1219
+  );
+  --image-gradient: linear-gradient(
+    to bottom,
+    rgba(235, 151, 78, 0.35),
+    rgba(230, 125, 34, 0.35),
+    rgba(0, 0, 0, 0.9)
+  );
+  --btn-add: linear-gradient(to bottom right, #0c56b7, #28354d);
+  --btn-delete: linear-gradient(to top right, #59100d, #59100d, #b12c1e);
+  --accent-color: #c6ac16;
+  --scroll-track: #1a1b1d;
+  --scroll-thumb: #28354d;
+}
+
+:root.light-mode {
+  --bg-app: #fff;
+  /* --bg-body: #697282; */
+  /* --bg-body: #9ebbe2; */
+  --bg-body: #4f709a;
+  --text-body: #333;
+  /* --icon-fill: #030309; */
+  --icon-fill: #0c56b7;
+  --primary-shade: #e7eef8;
+  --spinner: #0c56b7;
+  --btn-add: linear-gradient(to bottom right, #0c56b7, #164b96);
+  --btn-delete: linear-gradient(to top right, #b12c1e, #b12c1e);
+  --accent-color: #0c56b7;
+  --parallax-gradient: none;
+  --image-gradient: linear-gradient(
+    to bottom left,
+    transparent,
+    transparent,
+    transparent,
+    rgba(255, 253, 253, 0.35)
+  );
+  --scroll-track: #9ebbe2;
+  --scroll-thumb: #638cc1;
 }

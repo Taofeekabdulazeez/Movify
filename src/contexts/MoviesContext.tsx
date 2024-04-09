@@ -6,6 +6,7 @@ import {
   MoviesProviderProps,
   watchedMovieObj,
 } from "../interfaces/interface";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const MoviesContext = createContext<MoviesContextInterface>({
   movie: {
@@ -18,10 +19,11 @@ function MoviesProvider({ children }: MoviesProviderProps) {
   const [movies, setMovies] = useState<MovieObj[]>([]);
   const [isLoadingMovies, setIsLoadingMovies] = useState(false);
   const [error, setError] = useState(false);
-  const [selectedId, setSelectedId] = useState("tt0477347");
+  const [selectedId, setSelectedId] = useState("");
   const [movie, setMovie] = useState<MovieDetailsObj>({ imdbID: "" });
   const [isLoadingDetails, setIsLoadingDetails] = useState(false);
-  const [watchedList, setWatchedList] = useState<watchedMovieObj[]>([]);
+  // const [watchedList, setWatchedList] = useState<watchedMovieObj[]>([]);
+  const [watchedList, setWatchedList] = useLocalStorage([], "watched");
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) =>
     setQuery(event.target.value);
@@ -35,7 +37,7 @@ function MoviesProvider({ children }: MoviesProviderProps) {
   };
 
   const handleDeleteWatched = (id: string) =>
-    setWatchedList((watchedMovies) =>
+    setWatchedList((watchedMovies: Array<watchedMovieObj>) =>
       watchedMovies.filter((watched) => watched.id !== id)
     );
 

@@ -30,6 +30,15 @@ export interface MovieObj {
   Year?: number;
 }
 
+export interface ThemeContextInterface {
+  isDarkMode?: boolean;
+  toggleDarkMode?: () => void;
+}
+
+export interface ThemeProviderProps {
+  children: ReactNode;
+}
+
 export interface MovieDetailsObj {
   Title?: string;
   Genre?: string;

@@ -9,7 +9,7 @@ import { PiSpinnerBold } from "react-icons/pi";
 // `;
 
 function Spinner() {
-  return <PiSpinnerBold className="spinner" />;
+  return <PiSpinnerBold className="spinner" color="var(--spinner)" />;
 }
 
 export default Spinner;

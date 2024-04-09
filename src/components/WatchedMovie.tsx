@@ -4,7 +4,7 @@ import { watchedMovieObj } from "../interfaces/interface";
 import styled from "styled-components";
 import { FaRankingStar } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
-import { IoTimer } from "react-icons/io5";
+import { IoTimerOutline } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 
 const StlyedMovie = styled.a`
@@ -21,7 +21,7 @@ const StlyedMovie = styled.a`
 
   &:hover {
     /* background-color: #28354d; */
-    background-color: #161b25;
+    background-color: var(--primary-shade);
     button {
       display: block;
     }
@@ -89,12 +89,17 @@ function WatchedMovie({ watched }: WatchedMovieProps) {
             {userRating}
           </Span>
           <Span>
-            <IoTimer size={14} color="#92a5c8" /> {runtime} min
+            <IoTimerOutline size={14} color="var(--icon-fill)" /> {runtime} min
           </Span>
         </FlexRol>
       </div>
       <div>
-        <Button onClick={() => handleDeleteWatched?.(id)}>
+        <Button
+          onClick={(event: React.MouseEvent<HTMLElement>) => {
+            event.stopPropagation();
+            handleDeleteWatched?.(id);
+          }}
+        >
           <MdDelete color="#b12c1e" size={16} />
         </Button>
       </div>

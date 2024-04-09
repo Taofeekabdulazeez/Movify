@@ -8,12 +8,12 @@ const StyledInput = styled.input`
   outline: none;
   background-color: inherit;
   /* color: #cdc5bb; */
-  color: #eee;
+  color: var(--text-body);
   display: block;
 
   &::placeholder {
     /* color: #cdc5bb; */
-    color: #eee;
+    color: var(--text-body);
   }
 `;
 
@@ -23,7 +23,7 @@ const InputBox = styled.div`
   gap: 1rem;
   align-items: center;
   padding: 1.2rem 2.4rem;
-  background-color: #28354d;
+  background-color: var(--primary-shade);
   border-radius: 23px;
 `;
 
@@ -31,7 +31,7 @@ function Search() {
   const { query, handleQuery } = useContext(MoviesContext);
   return (
     <InputBox>
-      <FiSearch size={20} color="#fff" />
+      <FiSearch size={20} color="var(--icon-fill)" />
       <StyledInput
         placeholder="Search for movies"
         value={query}

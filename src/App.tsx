@@ -8,30 +8,35 @@ import MovieList from "./components/MovieList";
 import MovieDetails from "./components/MovieDetails";
 import WatchedList from "./components/WatchedList";
 import Logo from "./ui/Logo";
+import Theme from "./components/Theme";
+import { AppThemeProvider } from "./contexts/AppThemeContext";
 
 const AppContainer = styled.div`
-  width: 115rem;
-  background-color: #030309;
+  width: 118rem;
+  background-color: var(--bg-app);
   border-radius: 23px;
   padding-block: 3rem;
 `;
 
 function App() {
   return (
-    <MoviesProvider>
-      <AppContainer>
-        <Nav>
-          <Logo />
-          <Search />
-          <NumResults />
-        </Nav>
-        <Main>
-          <MovieList />
-          <MovieDetails />
-          <WatchedList />
-        </Main>
-      </AppContainer>
-    </MoviesProvider>
+    <AppThemeProvider>
+      <MoviesProvider>
+        <AppContainer>
+          <Nav>
+            <Logo />
+            <Search />
+            {false && <NumResults />}
+            {true && <Theme />}
+          </Nav>
+          <Main>
+            <MovieList />
+            <MovieDetails />
+            <WatchedList />
+          </Main>
+        </AppContainer>
+      </MoviesProvider>
+    </AppThemeProvider>
   );
 }
 

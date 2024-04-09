@@ -17,8 +17,8 @@ const StlyedMovie = styled.a`
   transition: all 0.3s;
 
   &:hover {
-    /* background-color: #28354d; */
-    background-color: #161b25;
+    /* background-color: #161b25; */
+    background-color: var(--primary-shade);
   }
 `;
 
@@ -56,7 +56,7 @@ function Movie({ movie }: MovieProps) {
       <div>
         <H5>{movie?.Title}</H5>
         <Span>
-          <SlCalender color="#92a5c8" size={12} /> {Year}
+          <SlCalender color="var(--icon-fill)" size={12} /> {Year}
         </Span>
       </div>
     </StlyedMovie>

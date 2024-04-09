@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledMain = styled.main`
   display: grid;
-  grid-template-columns: 1fr 2fr 1.2fr;
+  grid-template-columns: 1fr 2fr 1.1fr;
   gap: 1rem;
   overflow-y: hidden;
   padding: 1rem;
