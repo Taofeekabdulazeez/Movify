@@ -1,10 +1,10 @@
+import { useContext } from "react";
+import { MoviesContext } from "../contexts/MoviesContext";
+import { MovieObj } from "../interfaces/interface";
 import styled from "styled-components";
 import Movie from "./Movie";
 import Spinner from "../ui/Spinner";
 import Error from "../ui/Error";
-import { useContext } from "react";
-import { MoviesContext } from "../contexts/MoviesContext";
-import { MovieObj } from "../interfaces/interface";
 
 const List = styled.li`
   display: flex;
