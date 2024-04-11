@@ -22,8 +22,8 @@ function MoviesProvider({ children }: MoviesProviderProps) {
   const [selectedId, setSelectedId] = useState("");
   const [movie, setMovie] = useState<MovieDetailsObj>({ imdbID: "" });
   const [isLoadingDetails, setIsLoadingDetails] = useState(false);
-  // const [watchedList, setWatchedList] = useState<watchedMovieObj[]>([]);
   const [watchedList, setWatchedList] = useLocalStorage([], "watched");
+  const [userRating, setUserRating] = useState(0);
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) =>
     setQuery(event.target.value);
@@ -40,6 +40,8 @@ function MoviesProvider({ children }: MoviesProviderProps) {
     setWatchedList((watchedMovies: Array<watchedMovieObj>) =>
       watchedMovies.filter((watched) => watched.id !== id)
     );
+
+  const handleUserRating = (rating: number) => setUserRating(rating);
 
   useEffect(
     function () {
@@ -74,6 +76,7 @@ function MoviesProvider({ children }: MoviesProviderProps) {
           const data = await response.json();
           setMovie(data);
           setIsLoadingDetails(false);
+          setUserRating(0);
         } catch (error) {
           console.log(error);
         }
@@ -92,11 +95,13 @@ function MoviesProvider({ children }: MoviesProviderProps) {
         movies,
         error,
         watchedList,
+        userRating,
         isLoadingMovies,
         isLoadingDetails,
         handleDeleteWatched,
         handleAddWatched,
         handleSelectedId,
+        handleUserRating,
       }}
     >
       {children}

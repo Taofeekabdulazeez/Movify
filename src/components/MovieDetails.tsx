@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { MoviesContext } from "../contexts/MoviesContext";
 import { watchedMovieObj } from "../interfaces/interface";
 import styled, { css, keyframes } from "styled-components";
@@ -190,13 +190,13 @@ const Message = styled.p`
 `;
 
 function MovieDetails() {
-  const [userRating, setUserRating] = useState(0);
-
   const {
     watchedList,
     movie,
+    userRating = 0,
     handleAddWatched,
     handleDeleteWatched,
+    handleUserRating,
     isLoadingDetails,
   } = useContext(MoviesContext);
 
@@ -234,7 +234,7 @@ function MovieDetails() {
     };
 
     handleAddWatched?.(newMovie);
-    setUserRating(0);
+    handleUserRating?.(0);
   };
 
   if (isLoadingDetails) return <Spinner />;
@@ -264,7 +264,7 @@ function MovieDetails() {
             <>
               <Rating
                 defaultRating={0}
-                onSetRating={setUserRating}
+                onSetRating={handleUserRating}
                 showNumRating={true}
               />
               {userRating > 0 && (

@@ -10,9 +10,11 @@ export interface MoviesContextInterface {
   movie: MovieDetailsObj;
   isLoadingDetails?: boolean;
   watchedList?: Array<watchedMovieObj>;
+  userRating?: number;
   handleSelectedId?: (id: string) => void;
   handleAddWatched?: (newMovie: watchedMovieObj) => void;
   handleDeleteWatched?: (id: string) => void;
+  handleUserRating?: (rating: number) => void;
 }
 
 export interface MoviesProviderProps {
